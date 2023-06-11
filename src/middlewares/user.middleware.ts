@@ -10,9 +10,9 @@ export class UserMiddleware {
     next: NextFunction
   ) {
     try {
-      const { userEmail } = req.body;
+      const { _email } = req.body;
 
-      const user = new UserRepository().getEmail(userEmail);
+      const user = new UserRepository().getEmail(_email);
 
       if (!user) {
         return HttpResponse.notFound(res, 'Usuário');
