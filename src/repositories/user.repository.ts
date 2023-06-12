@@ -1,4 +1,4 @@
-import { usersList } from '../data/user';
+import { usersList } from '../data/users';
 
 export class UserRepository {
   public getEmail(email: string) {

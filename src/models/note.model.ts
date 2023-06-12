@@ -1,9 +1,14 @@
 import { v4 as createUuid } from 'uuid';
+import { User } from './user.model';
 
 export class Note {
   private _id: string;
 
-  constructor(private _title: string, private _description: string) {
+  constructor(
+    private _title: string,
+    private _description: string,
+    private _user: User
+  ) {
     this._id = createUuid();
   }
 
@@ -17,6 +22,10 @@ export class Note {
 
   public get id(): string {
     return this.id;
+  }
+
+  public get user(): User {
+    return this._user;
   }
 
   public updateNote() {

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { HttpResponse } from '../util/http-response.adapter';
 import { UserRepository } from '../repositories/user.repository';
-import { usersList } from '../data/user';
+import { usersList } from '../data/users';
 
 export class UserMiddleware {
   public static validateUserExists(

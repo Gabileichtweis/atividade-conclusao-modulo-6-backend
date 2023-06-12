@@ -1,4 +1,4 @@
-import { Note } from './notes.model';
+import { Note } from './note.model';
 
 export class User {
   public notes: Note[];
