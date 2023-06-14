@@ -9,9 +9,21 @@ export const noteRoutes = () => {
   });
 
   app.get('/listNotes', new NotesController().listNotes);
+
   app.post(
     '/createNote',
-    [UserMiddleware.validateUserExists, NoteMiddleware.validateFieldsCreate],
-    new NotesController().createNotes
+    [NoteMiddleware.validateFieldsCreate],
+    new NotesController().createNote
   );
+
+  //Não está pronto daqui para baixo
+  app.delete('/:id/deleteNote', new NotesController().deleteNote);
+
+  app.put(
+    '/:id/updateNote',
+    [NoteMiddleware.validateFieldsCreate],
+    new NotesController().updateNote
+  );
+
+  return app;
 };

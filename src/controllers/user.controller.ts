@@ -15,9 +15,9 @@ export class UserController {
 
   public create(req: Request, res: Response) {
     try {
-      const { _email, _password } = req.body;
+      const { email, password } = req.body;
 
-      const user = new User(_email, _password);
+      const user = new User(email, password);
       usersList.push(user);
 
       HttpResponse.success(
@@ -32,16 +32,16 @@ export class UserController {
 
   public login(req: Request, res: Response) {
     try {
-      const { _email, _password } = req.body;
+      const { email, password } = req.body;
 
-      const user = new UserRepository().getEmail(_email);
+      const user = new UserRepository().getEmail(email);
       if (!user) {
         return HttpResponse.invalidCredentials(res);
       }
-      if (user.password !== _password) {
+      if (user.password !== password) {
         return HttpResponse.invalidCredentials(res);
       }
-      return HttpResponse.success(res, 'Login realizado com sucesso', _email);
+      return HttpResponse.success(res, 'Login realizado com sucesso', email);
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }

@@ -1,6 +1,8 @@
+import { notesList } from '../data/notes';
 import { Note } from '../models/note.model';
 
-interface ListNotesParams {
-  userEmail: string;
-  notes: Note[];
+export class NotesRepository {
+  public create(note: Note) {
+    notesList.push(note);
+  }
 }

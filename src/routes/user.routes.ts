@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/user.controller';
 import { UserMiddleware } from '../middlewares/user.middleware';
+import { noteRoutes } from './notes.routes';
 
 export const appRoutes = () => {
   const app = Router();
@@ -18,6 +19,8 @@ export const appRoutes = () => {
     [UserMiddleware.validateUserExists],
     new UserController().login
   );
+
+  app.use('/:email/notes', noteRoutes());
 
   return app;
 };

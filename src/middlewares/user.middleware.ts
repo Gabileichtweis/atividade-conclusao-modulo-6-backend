@@ -10,9 +10,10 @@ export class UserMiddleware {
     next: NextFunction
   ) {
     try {
-      const { _email } = req.body;
+      const { email } = req.body;
+      console.log('entrou aqui');
 
-      const user = new UserRepository().getEmail(_email);
+      const user = new UserRepository().getEmail(email);
 
       if (!user) {
         return HttpResponse.notFound(res, 'Usuário');
@@ -30,13 +31,13 @@ export class UserMiddleware {
     next: NextFunction
   ) {
     try {
-      const { _email } = req.body;
+      const { email } = req.body;
 
-      if (!_email) {
+      if (!email) {
         return HttpResponse.fieldNotProvided(res, 'E-mail');
       }
 
-      if (usersList.some((user) => user.email === _email)) {
+      if (usersList.some((user) => user.email === email)) {
         return HttpResponse.invalid(res, 'E-mail');
       }
 
@@ -52,9 +53,9 @@ export class UserMiddleware {
     netx: NextFunction
   ) {
     try {
-      const { _password } = req.body;
+      const { password } = req.body;
 
-      if (!_password) {
+      if (!password) {
         return HttpResponse.fieldNotProvided(res, 'Senha');
       }
 
