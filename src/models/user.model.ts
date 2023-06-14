@@ -1,9 +1,11 @@
 import { Note } from './note.model';
 
 export class User {
-  public notes: Note[];
+  public _notes: Note[];
 
-  constructor(private _email: string, private _password: string) {}
+  constructor(private _email: string, private _password: string) {
+    this._notes = [];
+  }
 
   public get email() {
     return this._email;

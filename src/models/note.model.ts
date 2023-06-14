@@ -21,7 +21,7 @@ export class Note {
   }
 
   public get id(): string {
-    return this.id;
+    return this._id;
   }
 
   public get user(): User {

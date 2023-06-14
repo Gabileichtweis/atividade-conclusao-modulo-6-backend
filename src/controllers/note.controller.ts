@@ -48,16 +48,22 @@ export class NotesController {
         return HttpResponse.notFound(res, 'Usuário');
       }
 
-      const noteFound = user.notes.findIndex((note) => note.id === id);
+      const noteIndex = new NotesRepository().findIndex(id);
 
-      if (!noteFound) {
+      if (noteIndex < 0) {
         return HttpResponse.notFound(res, 'Recado');
       }
+
+      console.log(noteIndex);
+
+      const deletedNote = new NotesRepository().delete(noteIndex);
+
+      console.log(deletedNote);
 
       return HttpResponse.success(
         res,
         'Recado deletado com sucesso',
-        noteFound
+        deletedNote[0]
       );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
@@ -75,14 +81,12 @@ export class NotesController {
         return HttpResponse.notFound(res, 'Usuário');
       }
 
-      console.log('chegou aqui');
-
-      const noteFound = user.notes.find((note) => note.id === id);
+      /* const noteFound = user.notes.find((note) => note.id === id);
       console.log(noteFound);
 
       if (!noteFound) {
         return HttpResponse.notFound(res, 'Recado');
-      }
+      } */
 
       return console.log('deu bom');
     } catch (error: any) {
