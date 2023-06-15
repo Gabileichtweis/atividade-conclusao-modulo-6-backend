@@ -8,19 +8,23 @@ export const noteRoutes = () => {
     mergeParams: true,
   });
 
-  app.get('/listNotes', new NotesController().listNotes);
+  app.get(
+    '/',
+    [UserMiddleware.validateUserExists],
+    new NotesController().listNotes
+  );
 
   app.post(
-    '/createNote',
+    '/',
     [NoteMiddleware.validateFieldsCreate],
     new NotesController().createNote
   );
 
   //Não está pronto daqui para baixo
-  app.delete('/:id/deleteNote', new NotesController().deleteNote);
+  app.delete('/:id/', new NotesController().deleteNote);
 
   app.put(
-    '/:id/updateNote',
+    '/:id/',
     [NoteMiddleware.validateFieldsCreate],
     new NotesController().updateNote
   );

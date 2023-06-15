@@ -15,6 +15,6 @@ export class NotesRepository {
   }
 
   public delete(index: number) {
-    return notesList.splice(index, 1);
+    notesList.splice(index, 1);
   }
 }

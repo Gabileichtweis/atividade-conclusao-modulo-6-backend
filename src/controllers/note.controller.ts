@@ -11,6 +11,7 @@ export class NotesController {
       const { email } = req.params;
 
       let notes = new NotesRepository().list(email);
+
       return HttpResponse.success(res, 'Recados listados com sucesso', notes);
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
@@ -55,14 +56,14 @@ export class NotesController {
 
       console.log(noteIndex);
 
-      const deletedNote = new NotesRepository().delete(noteIndex);
+      new NotesRepository().delete(noteIndex);
 
-      console.log(deletedNote);
+      const notes = new NotesRepository().list(email);
 
       return HttpResponse.success(
         res,
         'Recado deletado com sucesso',
-        deletedNote[0].toJason()
+        notes.map((notes) => notes)
       );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);

@@ -34,6 +34,8 @@ export class UserController {
     try {
       const { email, password } = req.body;
 
+      //FAZER VALIDAÇÕES SEM O MIDLEWARE
+
       const user = new UserRepository().getEmail(email);
       if (!user) {
         return HttpResponse.invalidCredentials(res);

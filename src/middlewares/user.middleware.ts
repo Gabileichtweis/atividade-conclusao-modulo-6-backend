@@ -10,7 +10,7 @@ export class UserMiddleware {
     next: NextFunction
   ) {
     try {
-      const { email } = req.body;
+      const { email } = req.params;
 
       const user = new UserRepository().getEmail(email);
 
