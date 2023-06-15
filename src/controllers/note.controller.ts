@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { HttpResponse } from '../util/http-response.adapter';
 import { Note } from '../models/note.model';
-import { notesList } from '../data/notes';
 import { UserRepository } from '../repositories/user.repository';
 import { NotesRepository } from '../repositories/note.respository';
 
@@ -54,8 +53,6 @@ export class NotesController {
         return HttpResponse.notFound(res, 'Recado');
       }
 
-      console.log(noteIndex);
-
       new NotesRepository().delete(noteIndex);
 
       const notes = new NotesRepository().list(email);
@@ -81,14 +78,21 @@ export class NotesController {
         return HttpResponse.notFound(res, 'Usuário');
       }
 
-      /* const noteFound = user.notes.find((note) => note.id === id);
-      console.log(noteFound);
+      const note = new NotesRepository().getNote(id);
 
-      if (!noteFound) {
+      if (!note) {
         return HttpResponse.notFound(res, 'Recado');
-      } */
+      }
 
-      return console.log('deu bom');
+      if (title) {
+        note.title = title;
+      }
+
+      if (description) {
+        note.description = description;
+      }
+
+      return HttpResponse.created(res, 'Recado criado com sucesso', note);
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }

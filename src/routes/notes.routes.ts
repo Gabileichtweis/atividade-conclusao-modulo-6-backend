@@ -20,9 +20,9 @@ export const noteRoutes = () => {
     new NotesController().createNote
   );
 
-  //Não está pronto daqui para baixo
   app.delete('/:id/', new NotesController().deleteNote);
 
+  //Não está pronto daqui para baixo
   app.put(
     '/:id/',
     [NoteMiddleware.validateFieldsCreate],

@@ -14,6 +14,10 @@ export class NotesRepository {
     return notesList.findIndex((note) => note.id === id);
   }
 
+  public getNote(id: string) {
+    return notesList.find((note) => note.id === id);
+  }
+
   public delete(index: number) {
     notesList.splice(index, 1);
   }

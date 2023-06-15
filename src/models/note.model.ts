@@ -28,6 +28,14 @@ export class Note {
     return this._user;
   }
 
+  public set title(title: string) {
+    this._title = title;
+  }
+
+  public set description(description: string) {
+    this._description = description;
+  }
+
   public toJason() {
     return {
       title: this._title,
