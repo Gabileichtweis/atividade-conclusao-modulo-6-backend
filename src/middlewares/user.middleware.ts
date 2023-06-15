@@ -11,7 +11,6 @@ export class UserMiddleware {
   ) {
     try {
       const { email } = req.body;
-      console.log('entrou aqui');
 
       const user = new UserRepository().getEmail(email);
 

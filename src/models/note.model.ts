@@ -28,7 +28,10 @@ export class Note {
     return this._user;
   }
 
-  public updateNote() {
-    //lógica atualizar
+  public toJason() {
+    return {
+      title: this._title,
+      description: this._description,
+    };
   }
 }
