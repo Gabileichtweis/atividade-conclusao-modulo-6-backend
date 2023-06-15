@@ -8,11 +8,10 @@ import { NotesRepository } from '../repositories/note.respository';
 export class NotesController {
   public listNotes(req: Request, res: Response) {
     try {
-      return HttpResponse.success(
-        res,
-        'Recados listados com sucesso',
-        notesList
-      );
+      const { email } = req.params;
+
+      let notes = new NotesRepository().list(email);
+      return HttpResponse.success(res, 'Recados listados com sucesso', notes);
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }
@@ -63,7 +62,7 @@ export class NotesController {
       return HttpResponse.success(
         res,
         'Recado deletado com sucesso',
-        deletedNote[0]
+        deletedNote[0].toJason()
       );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
