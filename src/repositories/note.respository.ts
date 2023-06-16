@@ -1,9 +1,18 @@
 import { notesList } from '../data/notes';
-import { Note } from '../models/note.model';
+import { Note, NoteType } from '../models/note.model';
+
+interface ListNotesProps {
+  email: string;
+  type?: NoteType;
+}
 
 export class NotesRepository {
-  public list(email: string) {
-    return notesList.filter((notes) => notes.user.email === email);
+  public list(props: ListNotesProps) {
+    return notesList.filter(
+      (note) =>
+        note.user.email === props.email &&
+        (!props.type || note.type === props.type)
+    );
   }
 
   public create(note: Note) {

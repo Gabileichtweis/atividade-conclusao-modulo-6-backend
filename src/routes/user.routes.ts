@@ -9,7 +9,7 @@ export const appRoutes = () => {
   app.get('/', new UserController().list);
 
   app.post(
-    '/create',
+    '/',
     [UserMiddleware.validateUserEmail, UserMiddleware.validateUserPassword],
     new UserController().create
   );

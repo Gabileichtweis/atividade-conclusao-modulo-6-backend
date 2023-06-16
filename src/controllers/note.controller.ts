@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { HttpResponse } from '../util/http-response.adapter';
-import { Note } from '../models/note.model';
+import { Note, NoteType } from '../models/note.model';
 import { UserRepository } from '../repositories/user.repository';
 import { NotesRepository } from '../repositories/note.respository';
 
@@ -8,8 +8,12 @@ export class NotesController {
   public listNotes(req: Request, res: Response) {
     try {
       const { email } = req.params;
+      const { type } = req.query;
 
-      let notes = new NotesRepository().list(email);
+      let notes = new NotesRepository().list({
+        email: email,
+        type: type as NoteType,
+      });
 
       return HttpResponse.success(res, 'Recados listados com sucesso', notes);
     } catch (error: any) {
@@ -20,7 +24,7 @@ export class NotesController {
   public createNote(req: Request, res: Response) {
     try {
       const { email } = req.params;
-      const { title, description } = req.body;
+      const { title, description, type } = req.body;
 
       const user = new UserRepository().getEmail(email);
 
@@ -28,7 +32,7 @@ export class NotesController {
         return HttpResponse.notFound(res, 'Usuário');
       }
 
-      const newNote = new Note(title, description, user);
+      const newNote = new Note(title, description, type, user);
       new NotesRepository().create(newNote);
 
       return HttpResponse.created(res, 'Recado criado com sucesso', newNote);
@@ -55,12 +59,14 @@ export class NotesController {
 
       new NotesRepository().delete(noteIndex);
 
-      const notes = new NotesRepository().list(email);
+      const notes = new NotesRepository().list({
+        email: email,
+      });
 
       return HttpResponse.success(
         res,
         'Recado deletado com sucesso',
-        notes.map((notes) => notes)
+        notes.map((notes) => notes.toJason())
       );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);

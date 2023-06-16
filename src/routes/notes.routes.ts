@@ -20,11 +20,10 @@ export const noteRoutes = () => {
     new NotesController().createNote
   );
 
-  app.delete('/:id/', new NotesController().deleteNote);
+  app.delete('/:id', new NotesController().deleteNote);
 
-  //Não está pronto daqui para baixo
   app.put(
-    '/:id/',
+    '/:id',
     [NoteMiddleware.validateFieldsCreate],
     new NotesController().updateNote
   );
