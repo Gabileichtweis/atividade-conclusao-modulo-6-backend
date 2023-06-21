@@ -7,7 +7,11 @@ import { UserRepository } from '../repositories/user.repository';
 export class UserController {
   public list(req: Request, res: Response) {
     try {
-      return HttpResponse.success(res, 'ok', usersList);
+      return HttpResponse.success(
+        res,
+        'ok',
+        usersList.map((user) => user.toJason())
+      );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }
@@ -49,7 +53,11 @@ export class UserController {
       if (user.password !== password) {
         return HttpResponse.invalidCredentials(res);
       }
-      return HttpResponse.success(res, 'Login realizado com sucesso', email);
+      return HttpResponse.success(
+        res,
+        'Login realizado com sucesso',
+        user.toJason()
+      );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }

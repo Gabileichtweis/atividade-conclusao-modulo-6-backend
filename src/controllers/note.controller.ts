@@ -15,7 +15,11 @@ export class NotesController {
         type: type as NoteType,
       });
 
-      return HttpResponse.success(res, 'Recados listados com sucesso', notes);
+      return HttpResponse.success(
+        res,
+        'Recados listados com sucesso',
+        notes.map((note) => note.toJason())
+      );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }
@@ -35,7 +39,11 @@ export class NotesController {
       const newNote = new Note(title, description, type, user);
       new NotesRepository().create(newNote);
 
-      return HttpResponse.created(res, 'Recado criado com sucesso', newNote);
+      return HttpResponse.created(
+        res,
+        'Recado criado com sucesso',
+        newNote.toJason()
+      );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }
@@ -98,7 +106,11 @@ export class NotesController {
         note.description = description;
       }
 
-      return HttpResponse.created(res, 'Recado criado com sucesso', note);
+      return HttpResponse.created(
+        res,
+        'Recado criado com sucesso',
+        note.toJason()
+      );
     } catch (error: any) {
       return HttpResponse.genericError(res, error);
     }
