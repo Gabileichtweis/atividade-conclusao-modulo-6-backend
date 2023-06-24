@@ -22,11 +22,7 @@ export const noteRoutes = () => {
 
   app.delete('/:id', new NotesController().deleteNote);
 
-  app.put(
-    '/:id',
-    [NoteMiddleware.validateFieldsCreate],
-    new NotesController().updateNote
-  );
+  app.put('/:id', new NotesController().updateNote);
 
   return app;
 };

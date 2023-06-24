@@ -84,7 +84,7 @@ export class NotesController {
   public updateNote(req: Request, res: Response) {
     try {
       const { email, id } = req.params;
-      const { title, description } = req.body;
+      const { title, description, type } = req.body;
 
       const user = new UserRepository().getEmail(email);
 
@@ -106,9 +106,15 @@ export class NotesController {
         note.description = description;
       }
 
+      if (type) {
+        note.type = type as NoteType;
+      }
+
+      const notes = new NotesRepository().list({ email });
+
       return HttpResponse.created(
         res,
-        'Recado criado com sucesso',
+        'Recado atualizado com sucesso',
         note.toJason()
       );
     } catch (error: any) {
